@@ -1,7 +1,7 @@
 #include <Adafruit_NeoPixel.h>
 #include <Arduino_JSON.h>
 
-enum modes { UNDEF, COLOR, BLINK, UPDOWN, RAINBOW, UPWAVE, DWAVE, LANDING, UPLANDING, DOWNLANDING, OFF };
+enum modes { UNDEF, COLOR, BLINK, UPDOWN, RAINBOW, FADE, UPWAVE, DWAVE, LANDING, UPLANDING, DOWNLANDING, OFF };
 enum landing_modes { UPANDDOWN, UP, DOWN };
 
 struct colorRGB{
@@ -25,6 +25,8 @@ class DomoLamp  : public Adafruit_NeoPixel {
 
       typedef void ( *_f_Strip )( );
       int brightness = DEFAULT_BRIGHTNESS;
+      int fade_brightness = DEFAULT_BRIGHTNESS;
+      uint8_t fade_increment = 10;
       String state;
       int pixelCycle = 0;   // Pattern Pixel Cycle in Rainbow Mode
       uint32_t color;
@@ -134,7 +136,9 @@ class DomoLamp  : public Adafruit_NeoPixel {
       }
       
       void setStatusLamp( String mode ){
-
+        /*for ( int fooInt = One; fooInt != Last; fooInt++ ){
+          Foo foo = static_cast<Foo>(fooInt);
+        }*/
         if( mode.indexOf("BLIN") == 0 ){
            this->currentStatus.effect = BLINK;
            Serial.println("BLINK");
@@ -146,6 +150,10 @@ class DomoLamp  : public Adafruit_NeoPixel {
         if( mode.indexOf("RAIN") == 0 ){
            this->currentStatus.effect = RAINBOW;
            Serial.println("RAINBOW");
+        }
+        if( mode.indexOf("FADE") == 0 ){
+           this->currentStatus.effect = FADE;
+           Serial.println("FADE");
         }
         if( mode.indexOf("UPDO") == 0 ){
            this->currentStatus.effect = UPDOWN;
@@ -195,6 +203,10 @@ class DomoLamp  : public Adafruit_NeoPixel {
           case RAINBOW:
             light = &DomoLamp::rainbow;
             break;
+          case FADE:
+            fade_brightness = brightness;
+            light = &DomoLamp::fadeIn;
+            break;
           case LANDING:
             landingMode = UPANDDOWN;
             initLanding();
@@ -209,7 +221,6 @@ class DomoLamp  : public Adafruit_NeoPixel {
             landingMode = UP;
             initLanding();
             light = &DomoLamp::landing;
-            
             break;
           case DOWNLANDING:
             landingMode = DOWN;
@@ -340,6 +351,28 @@ class DomoLamp  : public Adafruit_NeoPixel {
         this->clear();
       };
 
+      void fadeIn(){
+        if( millis() - blink_millis >= this->currentStatus.latency ){
+          fade_brightness += fade_increment;
+          this->fill( this->currentStatus.color , 0 , this->numPixels());
+          if ( fade_brightness > 255 ) { light = &DomoLamp::fadeOut; return; }
+          this->setBrightness(fade_brightness);
+          this->show();
+          blink_millis = millis();
+        }
+      }
+      
+      void fadeOut(){
+        if( millis() - blink_millis >= this->currentStatus.latency ){
+          fade_brightness -= fade_increment;
+          this->fill( this->currentStatus.color , 0 , this->numPixels());
+          if ( fade_brightness < 0 ) { light = &DomoLamp::fadeIn; return; }
+          this->setBrightness(fade_brightness);
+          this->show();
+          blink_millis = millis();
+        }
+      }
+      
       void idle(){
         if( millis() - blink_millis >= this->currentStatus.latency ){
           
