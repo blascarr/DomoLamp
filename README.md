@@ -2,7 +2,7 @@
 **DomoLamp** is an open source **IOT lamp** controlled with a **MQTT server** which could be connected with any other API platform, such as Twitter, Instagram, Facebook or any other API on your own.
 Also can be connected with **Node-Red** Server in order to define some other complex logic behavior.
 
-![LampModel.PNG](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a49cd098-c4ab-40ce-a03e-7e8381905a08/LampModel.png)
+![LampModel.PNG](/src/LampModel.png)
 
 ## Purpose Idea
 
