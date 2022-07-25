@@ -2,7 +2,7 @@
 **DomoLamp** is an open source **IOT lamp** controlled with a **MQTT server** which could be connected with any other API platform, such as Twitter, Instagram, Facebook or any other API on your own.
 Also can be connected with **Node-Red** Server in order to define some other complex logic behavior.
 
-![LampModel.PNG](/src/LampModel.png)
+![LampModel.PNG](/src/LampModel.PNG)
 
 ## Purpose Idea
 
@@ -40,7 +40,7 @@ At first, the lamp represents the emotion of an adult ( controlled through a web
 
 Use **Spiralize Outer Contour** in **Ultimaker Cura** Software to print the lamp with transparent colour with a thin layer in order to print it reflective for LED lights.  
 
-![SpiralizeLamp.png](/src/SpiralizeLamp.PNG)
+![SpiralizeLamp.png](/src/SpiralizeLamp.png)
 
 ## Libraries Required
 
