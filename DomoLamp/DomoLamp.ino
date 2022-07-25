@@ -2,11 +2,9 @@
 
 #include <Ticker.h>
 #include "OTA_Controller.h"
-
-#include <ESPAsyncWebServer.h>
-AsyncWebServer server(80);
-
+#include "Server_Controller.h"
 #include "Wifi_Controller.h" 
+
 #include "DomoLamp_Controller.h"
 DomoLamp strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 
@@ -21,6 +19,7 @@ void setup() {
   OTA_init();
   MQTT_init();
   connectToWifi();
+  initWebServer();
   strip.init();
 }
 

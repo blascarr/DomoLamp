@@ -6,6 +6,9 @@ AsyncMqttClient mqttClient;
 void connectToMqtt() {
   Serial.println("Connecting to MQTT...");
   mqttClient.connect();
+  if( !mqttClient.connected()){
+    Serial.println("Invalid MQTT Credentials\n");
+  }
 }
 
 void onMqttConnect(bool sessionPresent) {
@@ -13,13 +16,10 @@ void onMqttConnect(bool sessionPresent) {
   Serial.print("Session present: ");
   Serial.println(sessionPresent);
   mqttClient.subscribe(MQTT_TOPIC,0);
-  //mqttClient.publish(MQTT_TOPIC_PUSH, 0, true, "test 1");
-  //Serial.println("Publishing at QoS 0");
 }
 
 void onMqttDisconnect(AsyncMqttClientDisconnectReason reason) {
   Serial.println("Disconnected from MQTT.");
-
   if (WiFi.isConnected()) {
     mqttReconnectTimer.once(2, connectToMqtt);
   }

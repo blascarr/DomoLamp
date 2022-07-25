@@ -1,7 +1,10 @@
-#define OTA_HOST   "DOMO LAMP"
-#define WIFI_HOST   "DOMO LAMP"
+// NeoPixel CONFIG
+#define LED_PIN   2
+#define LED_COUNT 16
 
 // WIFI CONFIG
+#define OTA_HOST   "DOMO LAMP"
+#define WIFI_HOST   "DOMO LAMP"
 #define LOCAL_IP IPAddress(192, 168, 1, 180)
 #define GATEWAY IPAddress(192, 168, 1, 1)
 #define SUBNET IPAddress(255, 255, 0, 0)
@@ -19,10 +22,10 @@
 #define MQTT_TOPIC "feel/domolamp"
 #define MQTT_TOPIC_PUSH "feelme/domolamp"
 
-// NeoPixel CONFIG
-#define LED_PIN   2
-#define LED_COUNT 16
+// SERVER CONFIG
+#define SERVER_EVENTS_ENDPOINT "/domo_events"
 
+// STREAM CONFIG
 #define uS_TO_S_FACTOR 1000000  /* Conversion factor for micro seconds to seconds */
 #define TIME_TO_SLEEP  3        /* Time ESPo266 will go to sleep (in seconds) */
 #define STREAM_CHARLENGTH 4

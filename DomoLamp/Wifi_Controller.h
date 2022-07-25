@@ -16,7 +16,6 @@
 #include <WiFiUdp.h>
 
 #include <ESPAsync_WiFiManager.h> 
-DNSServer dns;
 
 Ticker wifiReconnectTimer;
 ESPAsync_WiFiManager wifiManager(&server,&dns);
