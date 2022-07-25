@@ -20,7 +20,7 @@ At first, the lamp represents the emotion of an adult ( controlled through a web
 - **SEA** → **Creative**
 - **WHITE** → *Used for Configuration*
 
-![DomoLampSketch.PNG](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8018ddcb-e818-477b-b3be-ed9f8370d90a/DomoLampSketch.png)
+![DomoLampSketch.PNG](/src/DomoLampSketch.png)
 
 ## BOM ( Bill of Materials)
 
@@ -40,7 +40,7 @@ At first, the lamp represents the emotion of an adult ( controlled through a web
 
 Use **Spiralize Outer Contour** in **Ultimaker Cura** Software to print the lamp with transparent colour with a thin layer in order to print it reflective for LED lights.  
 
-![SpiralizeLamp.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/97c6dad2-8e08-4c0f-a408-18862088168a/SpiralizeLamp.png)
+![SpiralizeLamp.png](/src/SpiralizeLamp.png)
 
 ## Libraries Required
 
@@ -57,7 +57,7 @@ Use **Spiralize Outer Contour** in **Ultimaker Cura** Software to print the lamp
 
 ## Electronic Wiring with battery charger
 
-![DomoLamp_bb.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8eb4bb02-faea-460d-8587-9902f52fc98c/DomoLamp_bb.png)
+![DomoLamp_bb.png](/src/DomoLamp_bb.png)
 
 ## Data JSON Structure sent through Node-Red
 
@@ -67,9 +67,9 @@ Use **Spiralize Outer Contour** in **Ultimaker Cura** Software to print the lamp
 
 **IMPORTANT:** **retain** set to **true** for retaining last message while Lamp is disconnected. 
 
-![NodeRed Switch MQTT Send.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2a8ad6b8-e6fc-4012-b447-54f401cb58d9/NodeRed_Switch_MQTT_Send.png)
+![NodeRed Switch MQTT Send.png](/src/NodeRed_Switch_MQTT_Send.png)
 
-![NodeRed MQTT Out.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d7239d19-0931-479c-8ce6-a53ecf24741c/NodeRed_MQTT_Out.png)
+![NodeRed MQTT Out.png](/src/NodeRed_MQTT_Out.png)
 
 ### JSON Structure
 
@@ -94,13 +94,13 @@ Dashboard configuration to create a user interface controlled webpage Domolamp w
 
 [**Demo Node Red**](http://node.blascarr.com:1880/ui/) in production with **feel/domolamp** topic.
 
-![NodeRed_DashBoard.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/dfb2ee63-8d3f-4626-8077-6b546333b852/NodeRed_DashBoard.png)
+![NodeRed_DashBoard.png](/src/NodeRed_DashBoard.png)
 
-![NodeRedDashBoardConfig.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8c550e5b-486e-4c60-a84b-e36731154901/NodeRedDashBoardConfig.png)
+![NodeRedDashBoardConfig.png](/src/NodeRedDashBoardConfig.png)
 
-![NodeRedDashBoardDropDown.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/afa18578-4f47-4f00-af8b-453e3b819476/NodeRedDashBoardDropDown.png)
+![NodeRedDashBoardDropDown.png](/src/NodeRedDashBoardDropDown.png)
 
-![NodeRedDashBoardFunction.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c66fedb8-a6a6-4336-9279-486b65cd7249/NodeRedDashBoardFunction.png)
+![NodeRedDashBoardFunction.png](/src/NodeRedDashBoardFunction.png)
 
 ### Effects included
 
@@ -126,7 +126,7 @@ DomoLamp use **WifiManager** to connect it to the local network. Configuration w
 
 Just only credentials are required for **MQTT Server** and other configurations are used to select topic used in controlled with the structured explained before.
 
-![DomoLampConfig.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ebf7c60d-70fd-40b8-b56e-313e608c5907/DomoLampConfig.png)
+![DomoLampConfig.png](/src/DomoLampConfig.png)
 
 ## FAQ
 
