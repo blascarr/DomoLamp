@@ -8,8 +8,10 @@
   #include <ESP8266mDNS.h>
 #endif
 
-WiFiEventHandler wifiConnectHandler;
-WiFiEventHandler wifiDisconnectHandler;
+#if defined(ESP8266)
+  WiFiEventHandler wifiConnectHandler;
+  WiFiEventHandler wifiDisconnectHandler;
+#endif
 
 #include <WiFiUdp.h>
 
