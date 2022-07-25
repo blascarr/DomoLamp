@@ -1,6 +1,13 @@
 #define OTA_HOST   "DOMO LAMP"
 #define WIFI_HOST   "DOMO LAMP"
 
+// WIFI CONFIG
+#define LOCAL_IP IPAddress(192, 168, 1, 180)
+#define GATEWAY IPAddress(192, 168, 1, 1)
+#define SUBNET IPAddress(255, 255, 0, 0)
+#define PRIMARYDNS IPAddress(9, 9, 9, 9)
+#define SECONDARYDNS IPAddress(208, 67, 222, 222)
+
 // MQTT CONFIG
 //#define MQTT_HOST IPAddress(194, 135, 80, 53)
 #define MQTT_HOST "MQTT_HOST"
