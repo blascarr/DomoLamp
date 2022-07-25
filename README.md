@@ -3,6 +3,7 @@
 Also can be connected with **Node-Red** Server in order to define some other complex logic behavior.
 
 ![LampModel.PNG](/src/LampModel.PNG)
+![DomoLampSketch.PNG](/src/DomoLampSketch.PNG)
 
 ## Purpose Idea
 
@@ -20,7 +21,6 @@ At first, the lamp represents the emotion of an adult ( controlled through a web
 - **SEA** → **Creative**
 - **WHITE** → *Used for Configuration*
 
-![DomoLampSketch.PNG](/src/DomoLampSketch.PNG)
 
 ## BOM ( Bill of Materials)
 
