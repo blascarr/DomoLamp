@@ -20,7 +20,7 @@ At first, the lamp represents the emotion of an adult ( controlled through a web
 - **SEA** → **Creative**
 - **WHITE** → *Used for Configuration*
 
-![DomoLampSketch.PNG](/src/DomoLampSketch.png)
+![DomoLampSketch.PNG](/src/DomoLampSketch.PNG)
 
 ## BOM ( Bill of Materials)
 
@@ -40,7 +40,7 @@ At first, the lamp represents the emotion of an adult ( controlled through a web
 
 Use **Spiralize Outer Contour** in **Ultimaker Cura** Software to print the lamp with transparent colour with a thin layer in order to print it reflective for LED lights.  
 
-![SpiralizeLamp.png](/src/SpiralizeLamp.png)
+![SpiralizeLamp.png](/src/SpiralizeLamp.PNG)
 
 ## Libraries Required
 
