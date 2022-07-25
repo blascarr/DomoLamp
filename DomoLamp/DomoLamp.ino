@@ -6,10 +6,10 @@
 #include <ESPAsyncWebServer.h>
 AsyncWebServer server(80);
 
+#include "Wifi_Controller.h" 
 #include "DomoLamp_Controller.h"
 DomoLamp strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 
-#include "Wifi_Controller.h" 
 #include "MQTT_Controller.h"
 #include "WifiMQTT_Controller.h" 
 

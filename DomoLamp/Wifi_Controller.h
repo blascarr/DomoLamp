@@ -8,11 +8,11 @@ WiFiEventHandler wifiDisconnectHandler;
 DNSServer dns;
 
 Ticker wifiReconnectTimer;
-
+ESPAsync_WiFiManager wifiManager(&server,&dns);
 void connectToWifi() {
   Serial.println("Connecting to Wi-Fi...");
   WiFi.mode(WIFI_STA);
-  ESPAsync_WiFiManager wifiManager(&server,&dns);
+  
   bool wifiManagerConnected = wifiManager.autoConnect(WIFI_HOST);
   
   if( wifiManagerConnected ){

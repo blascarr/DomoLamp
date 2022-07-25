@@ -1,7 +1,7 @@
 #include <Adafruit_NeoPixel.h>
 #include <Arduino_JSON.h>
 
-enum modes { UNDEF, COLOR, BLINK, UPDOWN, RAINBOW, FADE, UPWAVE, DWAVE, LANDING, UPLANDING, DOWNLANDING, OFF };
+enum modes { UNDEF, COLOR, BLINK, UPDOWN, RAINBOW, FADE, UPWAVE, DWAVE, LANDING, UPLANDING, DOWNLANDING, WIFIOFF, OFF };
 enum landing_modes { UPANDDOWN, UP, DOWN };
 
 struct colorRGB{
@@ -179,6 +179,10 @@ class DomoLamp  : public Adafruit_NeoPixel {
            this->currentStatus.effect = UPWAVE;
            Serial.println("UPWAVE");
         }
+        if( mode.indexOf("WIFI") == 0 ){
+           this->currentStatus.effect = WIFIOFF;
+           Serial.println("WIFI MANAGER RESET");
+        }
         if( mode.indexOf("OFF") == 0 ){
            this->currentStatus.effect = OFF;
            Serial.println("OFF");
@@ -236,6 +240,10 @@ class DomoLamp  : public Adafruit_NeoPixel {
             landingMode = DOWN;
             initLanding();
             light = &DomoLamp::wave;
+            break;
+          case WIFIOFF:
+            this->currentStatus.color = this->Color( 0 , 0, 0 );
+            light = &DomoLamp::wifioff;
             break;
           case OFF:
             this->clear();
@@ -372,10 +380,18 @@ class DomoLamp  : public Adafruit_NeoPixel {
           blink_millis = millis();
         }
       }
+
+      void wifioff(){
+        if( millis() - blink_millis >= this->currentStatus.latency ){
+          blink_millis = millis();
+          wifiManager.resetSettings();
+          light = &DomoLamp::blink;
+        }
+      };
       
       void idle(){
         if( millis() - blink_millis >= this->currentStatus.latency ){
-          
+          blink_millis = millis();
         }
       };
 };
