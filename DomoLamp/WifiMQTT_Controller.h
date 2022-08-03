@@ -8,7 +8,9 @@
   void onWifiDisconnect(const WiFiEventStationModeDisconnected& event) {
     Serial.println("Disconnected from Wi-Fi.");
     mqttReconnectTimer.detach(); // ensure we don't reconnect to MQTT while reconnecting to Wi-Fi
-    wifiReconnectTimer.once(2, connectToWifi);
+    if( strip.currentStatus.effect != NOWIFI ){
+      wifiReconnectTimer.once(3, connectToWifi);
+    }
   }
 #endif
 

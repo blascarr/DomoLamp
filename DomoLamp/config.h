@@ -12,22 +12,25 @@
 #define SECONDARYDNS IPAddress(208, 67, 222, 222)
 
 // MQTT CONFIG
-//#define MQTT_HOST IPAddress(194, 135, 80, 53)
-#define MQTT_HOST "MQTT_HOST"
-#define MQTT_PORT 1883
-#define MQTT_USER "admin"
-#define MQTT_PASS "*********"
+#define MQTT_HOST_LEN           64
+#define MQTT_PORT_LEN           6
+#define MQTT_USER_LEN           32
+#define MQTT_PASS_LEN           32
+#define MQTT_TOPIC_LEN           32
 
-// MQTT Topics
-#define MQTT_TOPIC "feel/domolamp"
-#define MQTT_TOPIC_PUSH "feelme/domolamp"
+char MQTT_HOST [MQTT_HOST_LEN]    = "MQTT_HOST.com";
+char MQTT_PORT   [MQTT_PORT_LEN]  = "1883";
+char MQTT_USER  [MQTT_USER_LEN]   = "admin";
+char MQTT_PASS  [MQTT_PASS_LEN]   = "*********";
+char MQTT_TOPIC   [MQTT_TOPIC_LEN]   = "feel/domolamp";
 
 // SERVER CONFIG
 #define SERVER_EVENTS_ENDPOINT "/domo_events"
 
 // STREAM CONFIG
 #define uS_TO_S_FACTOR 1000000  /* Conversion factor for micro seconds to seconds */
-#define TIME_TO_SLEEP  3        /* Time ESPo266 will go to sleep (in seconds) */
+#define SLEEP_TIME_LEN    10
+char SLEEP_TIME  [SLEEP_TIME_LEN] = "3000";
 #define STREAM_CHARLENGTH 4
 #define DEFAULT_BRIGHTNESS 50
 

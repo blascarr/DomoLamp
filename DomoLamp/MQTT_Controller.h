@@ -77,7 +77,13 @@ void MQTT_init(){
   mqttClient.onUnsubscribe(onMqttUnsubscribe);
   mqttClient.onPublish(onMqttPublish);
   mqttClient.onMessage(onMqttMessage);
-  mqttClient.setServer(MQTT_HOST, MQTT_PORT);
+
+  strncpy(MQTT_HOST, custom_mqtt_server.getValue(), sizeof(MQTT_HOST));
+  strncpy(MQTT_PORT, custom_mqtt_port.getValue(), sizeof(MQTT_PORT));
+  strncpy(MQTT_USER, custom_mqtt_user.getValue(), sizeof(MQTT_USER));
+  strncpy(MQTT_PASS, custom_mqtt_pass.getValue(), sizeof(MQTT_PASS));
+  
+  mqttClient.setServer(MQTT_HOST, String(MQTT_PORT).toInt());
   // If your broker requires authentication (username and password), set them below
   mqttClient.setCredentials(MQTT_USER, MQTT_PASS);
 }
