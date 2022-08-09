@@ -18,10 +18,10 @@
 #define MQTT_PASS_LEN           32
 #define MQTT_TOPIC_LEN           32
 
-char MQTT_HOST [MQTT_HOST_LEN]    = "MQTT_HOST.com";
+char MQTT_HOST [MQTT_HOST_LEN]    = "mqtt.blascarr.com";
 char MQTT_PORT   [MQTT_PORT_LEN]  = "1883";
 char MQTT_USER  [MQTT_USER_LEN]   = "admin";
-char MQTT_PASS  [MQTT_PASS_LEN]   = "*********";
+char MQTT_PASS  [MQTT_PASS_LEN]   = "AWS_qu1t_m0st";
 char MQTT_TOPIC   [MQTT_TOPIC_LEN]   = "feel/domolamp";
 
 // SERVER CONFIG

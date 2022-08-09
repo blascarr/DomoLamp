@@ -16,6 +16,14 @@ void initWebServer() {
     request->send_P(200, "text/html", domolamp_html);
   });
 
+   server.on("/domo", HTTP_GET, [] (AsyncWebServerRequest *request) {  
+    //Get Name
+    String jsonData = request->getParam("LampData")->value();
+    Serial.print(" JSON Data ");
+    Serial.println( jsonData );
+
+  });
+
    // Handle Web Server Events
   events.onConnect([](AsyncEventSourceClient * client) {
     if (client->lastId()) {

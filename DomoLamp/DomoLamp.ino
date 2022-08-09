@@ -1,18 +1,21 @@
 #include "config.h"
 
 #include <Ticker.h>
+#include <Arduino_JSON.h>
+
 #include "OTA_Controller.h"
 #include "Server_Controller.h"
-#include "Wifi_Controller.h" 
 
 #include "DomoLamp_Controller.h"
 DomoLamp strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 
+#include "Wifi_Controller.h" 
 #include "MQTT_Controller.h"
 #include "WifiMQTT_Controller.h" 
-
+#include "WifiLamp_Controller.h" 
+      
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(115200);   
   Serial.println();
 
   onWifiEvents();
@@ -26,7 +29,8 @@ void setup() {
 void loop() {
   unsigned long currentMillis = millis();
   ArduinoOTA.handle();
-  
+
+  // Blocking loop due to WifiManager
   if( millis() - time_stamp > time_interval ){
     time_stamp = millis();
     strip.loop();

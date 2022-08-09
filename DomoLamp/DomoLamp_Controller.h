@@ -1,5 +1,4 @@
 #include <Adafruit_NeoPixel.h>
-#include <Arduino_JSON.h>
 
 enum modes { UNDEF, COLOR, BLINK, UPDOWN, RAINBOW, FADE, UPWAVE, DWAVE, LANDING, UPLANDING, DOWNLANDING, ONWIFI, NOWIFI, OFF };
 enum landing_modes { UPANDDOWN, UP, DOWN };
@@ -40,6 +39,7 @@ class DomoLamp  : public Adafruit_NeoPixel {
       uint16_t currentPixel = 0;
       uint16_t landingleds = 2;
       
+      void resetWifiManager();
       typedef void ( DomoLamp::*_f_lamp )();
       _f_lamp light = &DomoLamp::idle; //Loop Controller Function
       
@@ -136,9 +136,6 @@ class DomoLamp  : public Adafruit_NeoPixel {
       }
       
       void setStatusLamp( String mode ){
-        /*for ( int fooInt = One; fooInt != Last; fooInt++ ){
-          Foo foo = static_cast<Foo>(fooInt);
-        }*/
         if( mode.indexOf("BLIN") == 0 ){
            this->currentStatus.effect = BLINK;
            Serial.println("BLINK");
@@ -347,9 +344,6 @@ class DomoLamp  : public Adafruit_NeoPixel {
               currentPixel = this->numPixels()/2;
             }
           }
-
-          //uint16_t initLed = currentPixel%landingleds;
-          //increment
           for(uint16_t i=currentPixel%landingleds; i <= this->numPixels()/2; i=i+landingleds) {
               this->setPixelColor( i - dir , 0 );
               this->setPixelColor(this->numPixels() - i - dir, 0 );
@@ -359,7 +353,6 @@ class DomoLamp  : public Adafruit_NeoPixel {
           }
           this->show();
         }
-        
       }
 
       void initLanding(){
@@ -392,7 +385,7 @@ class DomoLamp  : public Adafruit_NeoPixel {
       void wifioff(){
         if( millis() - blink_millis >= this->currentStatus.latency ){
           blink_millis = millis();
-          wifiManager.resetSettings();
+          DomoLamp::resetWifiManager();
           light = &DomoLamp::blink;
         }
       };
