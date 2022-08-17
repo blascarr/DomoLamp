@@ -15,7 +15,7 @@ void onMqttConnect(bool sessionPresent) {
   Serial.println("Connected to MQTT.");
   Serial.print("Session present: ");
   Serial.println(sessionPresent);
-  mqttClient.subscribe(MQTT_TOPIC,0);
+  mqttClient.subscribe(MQTT_TOPIC, MQTT_QOS );
 }
 
 void onMqttDisconnect(AsyncMqttClientDisconnectReason reason) {
@@ -68,9 +68,19 @@ void onMqttMessage(char* topic, char* payload, AsyncMqttClientMessageProperties 
   String message(messageArray);
   Serial.println( message );
   strip.setStatus( message );
+  
+  //  Publish Received ACK message
+  #if WIFIMANAGER
+    strncpy(MQTT_ACKTOPIC, custom_mqtt_acktopic.getValue(), sizeof(MQTT_ACKTOPIC));
+  #endif
+  String ack_message = "Received :)";
+  char ack_buf[ ack_message.length() ];
+  ack_message.toCharArray(ack_buf, ack_message.length() );
+  mqttClient.publish( MQTT_ACKTOPIC, MQTT_QOS, false, ack_buf, ack_message.length() );
 }
 
 void MQTT_init(){
+  mqttClient.setClientId(DOMOLAMP_ID);
   mqttClient.onConnect(onMqttConnect);
   mqttClient.onDisconnect(onMqttDisconnect);
   mqttClient.onSubscribe(onMqttSubscribe);
@@ -78,11 +88,12 @@ void MQTT_init(){
   mqttClient.onPublish(onMqttPublish);
   mqttClient.onMessage(onMqttMessage);
 
-  strncpy(MQTT_HOST, custom_mqtt_server.getValue(), sizeof(MQTT_HOST));
-  strncpy(MQTT_PORT, custom_mqtt_port.getValue(), sizeof(MQTT_PORT));
-  strncpy(MQTT_USER, custom_mqtt_user.getValue(), sizeof(MQTT_USER));
-  strncpy(MQTT_PASS, custom_mqtt_pass.getValue(), sizeof(MQTT_PASS));
-  
+  #if WIFIMANAGER
+    strncpy(MQTT_HOST, custom_mqtt_server.getValue(), sizeof(MQTT_HOST));
+    strncpy(MQTT_PORT, custom_mqtt_port.getValue(), sizeof(MQTT_PORT));
+    strncpy(MQTT_USER, custom_mqtt_user.getValue(), sizeof(MQTT_USER));
+    strncpy(MQTT_PASS, custom_mqtt_pass.getValue(), sizeof(MQTT_PASS));
+  #endif
   mqttClient.setServer(MQTT_HOST, String(MQTT_PORT).toInt());
   // If your broker requires authentication (username and password), set them below
   mqttClient.setCredentials(MQTT_USER, MQTT_PASS);

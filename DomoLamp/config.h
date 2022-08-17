@@ -2,7 +2,13 @@
 #define LED_PIN   2
 #define LED_COUNT 16
 
+#define DOMOLAMP_ID   "DOMOLAMP_001"
+
 // WIFI CONFIG
+#define WIFIMANAGER   false
+
+#define WIFI_SSID   "ZMS"
+#define WIFI_PASS   "ZM4K3RS:P"
 #define OTA_HOST   "DOMO LAMP"
 #define WIFI_HOST   "DOMO LAMP"
 #define LOCAL_IP IPAddress(192, 168, 1, 180)
@@ -17,12 +23,15 @@
 #define MQTT_USER_LEN           32
 #define MQTT_PASS_LEN           32
 #define MQTT_TOPIC_LEN           32
+#define MQTT_ACKTOPIC_LEN           32
+#define MQTT_QOS           1
 
-char MQTT_HOST [MQTT_HOST_LEN]    = "mqtt.blascarr.com";
+char MQTT_HOST [MQTT_HOST_LEN]    = "mqtt.bhost.com";
 char MQTT_PORT   [MQTT_PORT_LEN]  = "1883";
 char MQTT_USER  [MQTT_USER_LEN]   = "admin";
-char MQTT_PASS  [MQTT_PASS_LEN]   = "AWS_qu1t_m0st";
-char MQTT_TOPIC   [MQTT_TOPIC_LEN]   = "feel/domolamp";
+char MQTT_PASS  [MQTT_PASS_LEN]   = "***********";
+char MQTT_TOPIC   [MQTT_TOPIC_LEN]   = "test/domolamp";
+char MQTT_ACKTOPIC   [MQTT_ACKTOPIC_LEN]   = "test/ackdomolamp";
 
 // SERVER CONFIG
 #define SERVER_EVENTS_ENDPOINT "/domo_events"
