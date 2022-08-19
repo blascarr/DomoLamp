@@ -2,6 +2,7 @@
 
   void onWifiConnect(const WiFiEventStationModeGotIP& event) {
     Serial.println("Connected to Wi-Fi.");
+    mqtt_reset_trycounter = 0;
     connectToMqtt();
   }
   

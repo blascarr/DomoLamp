@@ -8,8 +8,8 @@ char DOMOLAMP_ID  [MQTT_TOPIC_ID_LEN]   = "D0M0L4MP";
 // WIFI CONFIG
 #define WIFIMANAGER   true
 
-#define WIFI_SSID   "ZMS"
-#define WIFI_PASS   "ZM4K3RS:P"
+#define WIFI_SSID   "ZMS_SSID"
+#define WIFI_PASS   "**********"
 #define OTA_HOST   "DOMO LAMP"
 #define WIFI_HOST   "DOMO LAMP"
 #define LOCAL_IP IPAddress(192, 168, 1, 180)
@@ -34,13 +34,18 @@ char MQTT_PASS  [MQTT_PASS_LEN]   = "**********";
 char MQTT_TOPIC   [MQTT_TOPIC_LEN]   = "test/";
 char MQTT_ACKTOPIC   [MQTT_ACKTOPIC_LEN]   = "ack/";
 
+#define MQTT_RESET_MAXTRIES  5
+int mqtt_reset_trycounter = 0;
+
 // SERVER CONFIG
 #define SERVER_EVENTS_ENDPOINT "/domo_events"
 
-// STREAM CONFIG
+// SLEEP CONFIG
 #define uS_TO_S_FACTOR 1000000  /* Conversion factor for micro seconds to seconds */
 #define SLEEP_TIME_LEN    10
 char SLEEP_TIME  [SLEEP_TIME_LEN] = "3000";
+
+// STREAM CONFIG
 #define STREAM_CHARLENGTH 4
 #define DEFAULT_BRIGHTNESS 50
 

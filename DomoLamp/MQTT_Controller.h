@@ -24,9 +24,20 @@ void onMqttConnect(bool sessionPresent) {
 }
 
 void onMqttDisconnect(AsyncMqttClientDisconnectReason reason) {
-  Serial.println("Disconnected from MQTT.");
-  if (WiFi.isConnected()) {
-    mqttReconnectTimer.once(2, connectToMqtt);
+  mqtt_reset_trycounter++;
+  Serial.print("Disconnected from MQTT. Try : ");
+  Serial.println(mqtt_reset_trycounter);
+  if( mqtt_reset_trycounter > MQTT_RESET_MAXTRIES){
+    #if WIFIMANAGER
+      wifiManager.resetSettings();
+    #endif
+    strip.currentStatus.color = strip.Color( 0 , 0, 0 );
+    strip.light = &DomoLamp::blink;
+    ESP.restart();
+  }else{
+    if (WiFi.isConnected()) {
+      mqttReconnectTimer.once(2, connectToMqtt);
+    }
   }
 }
 
