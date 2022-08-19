@@ -15,7 +15,11 @@ void onMqttConnect(bool sessionPresent) {
   Serial.println("Connected to MQTT.");
   Serial.print("Session present: ");
   Serial.println(sessionPresent);
-  mqttClient.subscribe(MQTT_TOPIC, MQTT_QOS );
+  
+  char topic[strlen(MQTT_TOPIC)+strlen(DOMOLAMP_ID)];
+  strcpy(topic, MQTT_TOPIC ); 
+  strcat(topic, DOMOLAMP_ID);
+  mqttClient.subscribe( topic, MQTT_QOS );
 }
 
 void onMqttDisconnect(AsyncMqttClientDisconnectReason reason) {
@@ -76,7 +80,12 @@ void onMqttMessage(char* topic, char* payload, AsyncMqttClientMessageProperties 
   String ack_message = "Received :)";
   char ack_buf[ ack_message.length() ];
   ack_message.toCharArray(ack_buf, ack_message.length() );
-  mqttClient.publish( MQTT_ACKTOPIC, MQTT_QOS, false, ack_buf, ack_message.length() );
+  
+  char ack_topic[strlen(MQTT_ACKTOPIC)+strlen(DOMOLAMP_ID)];
+  strcpy(ack_topic, MQTT_ACKTOPIC ); 
+  strcat(ack_topic, DOMOLAMP_ID);
+  
+  mqttClient.publish( ack_topic, MQTT_QOS, false, ack_buf, ack_message.length() );
 }
 
 void MQTT_init(){
