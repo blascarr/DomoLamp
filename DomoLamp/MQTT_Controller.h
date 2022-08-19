@@ -6,6 +6,7 @@ AsyncMqttClient mqttClient;
 void connectToMqtt() {
   Serial.println("Connecting to MQTT...");
   mqttClient.connect();
+  delay(1000);
   if( !mqttClient.connected()){
     Serial.println("Invalid MQTT Credentials\n");
   }
@@ -77,15 +78,16 @@ void onMqttMessage(char* topic, char* payload, AsyncMqttClientMessageProperties 
   #if WIFIMANAGER
     strncpy(MQTT_ACKTOPIC, custom_mqtt_acktopic.getValue(), sizeof(MQTT_ACKTOPIC));
   #endif
-  String ack_message = "Received :)";
-  char ack_buf[ ack_message.length() ];
-  ack_message.toCharArray(ack_buf, ack_message.length() );
+  
+  String ack_message = "Received from : "+ String(DOMOLAMP_ID);
+  char ack_buf[ ack_message.length()+1 ];
+  ack_message.toCharArray(ack_buf, ack_message.length() +1);
   
   char ack_topic[strlen(MQTT_ACKTOPIC)+strlen(DOMOLAMP_ID)];
   strcpy(ack_topic, MQTT_ACKTOPIC ); 
   strcat(ack_topic, DOMOLAMP_ID);
   
-  mqttClient.publish( ack_topic, MQTT_QOS, false, ack_buf, ack_message.length() );
+  mqttClient.publish( ack_topic, MQTT_QOS, false, ack_buf, ack_message.length()+1 );
 }
 
 void MQTT_init(){

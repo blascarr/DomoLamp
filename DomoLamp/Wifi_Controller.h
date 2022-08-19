@@ -13,8 +13,6 @@
   WiFiEventHandler wifiDisconnectHandler;
 #endif
 
-#include <WiFiUdp.h>
-
 #if WIFIMANAGER 
   #include "ESPAsync_DomoManager/src/ESPAsync_DomoManager.h" 
 
@@ -31,9 +29,10 @@
 Ticker wifiReconnectTimer;
 
 void connectToWifi() {
-  Serial.println("Connecting to Wi-Fi...");
+  Serial.println("Wi-Fi ...");
   WiFi.mode(WIFI_STA);
   #if WIFIMANAGER 
+    Serial.println("Connecting to WifiManager...");
     wifiManager.addParameter(&custom_mqtt_server);
     wifiManager.addParameter(&custom_mqtt_port);
     wifiManager.addParameter(&custom_mqtt_user);
@@ -46,7 +45,7 @@ void connectToWifi() {
     
     if( wifiManagerConnected ){
         Serial.println("Async WifiManager On");
-        Serial.println("connected... :)");
+        Serial.print("Connected to Wifi - Local IP : ");
         // Configures static IP address
         if (!WiFi.config(LOCAL_IP, GATEWAY, SUBNET, PRIMARYDNS, SECONDARYDNS)) {
           Serial.println("STA Failed to configure");
@@ -62,14 +61,15 @@ void connectToWifi() {
     }
   #else
     WiFi.begin( WIFI_SSID, WIFI_PASS );
+    if (!WiFi.config(LOCAL_IP, GATEWAY, SUBNET, PRIMARYDNS, SECONDARYDNS)) {
+      Serial.println("STA Failed to configure");
+    }
     Serial.println("Connecting to Wifi...");
     while (WiFi.status() != WL_CONNECTED) {
       Serial.print('.');
       delay(1000);
     }
-    
   #endif
-  
 
   Serial.println(WiFi.localIP());
 }

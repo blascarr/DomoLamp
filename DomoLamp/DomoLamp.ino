@@ -14,7 +14,6 @@ DomoLamp strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 #include "WifiMQTT_Controller.h" 
 #include "WifiLamp_Controller.h" 
 
-
 void setup() {
   Serial.begin(115200);   
   Serial.println();

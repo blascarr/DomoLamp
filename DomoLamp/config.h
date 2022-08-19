@@ -30,7 +30,7 @@ char DOMOLAMP_ID  [MQTT_TOPIC_ID_LEN]   = "D0M0L4MP";
 char MQTT_HOST [MQTT_HOST_LEN]    = "mqtt.host.com";
 char MQTT_PORT   [MQTT_PORT_LEN]  = "1883";
 char MQTT_USER  [MQTT_USER_LEN]   = "admin";
-char MQTT_PASS  [MQTT_PASS_LEN]   = "********";
+char MQTT_PASS  [MQTT_PASS_LEN]   = "**********";
 char MQTT_TOPIC   [MQTT_TOPIC_LEN]   = "test/";
 char MQTT_ACKTOPIC   [MQTT_ACKTOPIC_LEN]   = "ack/";
 
