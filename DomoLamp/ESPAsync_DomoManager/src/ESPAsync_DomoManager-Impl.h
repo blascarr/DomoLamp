@@ -2162,8 +2162,10 @@ void ESPAsync_WiFiManager::handleLamp(AsyncWebServerRequest *request)
 {
   String page = FPSTR(WM_HTTP_HEAD_START);
   page.replace("{v}", "Lamp Controller");
+  page += FPSTR(LAMPPAGE_STYLE);
   page += FPSTR(LAMPPAGE_BODY);
   page += FPSTR(LAMPPAGE_SCRIPT);
+
   page += F("</html>");
   request->send(200, WM_HTTP_HEAD_CT, page);
 
