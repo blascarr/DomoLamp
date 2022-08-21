@@ -40,6 +40,7 @@ int mqtt_reset_trycounter = 0;
 // SERVER CONFIG
 #define SERVER_EVENTS_ENDPOINT "/domo_events"
 #define DATA_REQUEST_INPUT "LampData"
+
 // SLEEP CONFIG
 #define uS_TO_S_FACTOR 1000000  /* Conversion factor for micro seconds to seconds */
 #define SLEEP_TIME_LEN    10

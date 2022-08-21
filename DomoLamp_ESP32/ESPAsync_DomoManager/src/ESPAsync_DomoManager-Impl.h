@@ -417,14 +417,6 @@ void ESPAsync_WiFiManager::setupConfigPortal()
       Serial.print(" JSON Data ");
       Serial.println( jsonData );
       strip.setStatus(jsonData);
-      //JSONVar domoJSON = JSON.parse(jsonData);
-      /*deserializeJson(doc, jsonData);
-      String effect = doc["effect"];
-      int latency = doc["latency"].as<int>();
-      int brightness = doc["brightness"].as<int>();
-      int red = doc["RGBColor"][0].as<int>();
-      int green = doc["RGBColor"][1].as<int>();
-      int blue = doc["RGBColor"][2].as<int>();*/
     }
   });
   server->begin(); // Web server start
@@ -2162,8 +2154,10 @@ void ESPAsync_WiFiManager::handleLamp(AsyncWebServerRequest *request)
 {
   String page = FPSTR(WM_HTTP_HEAD_START);
   page.replace("{v}", "Lamp Controller");
+  page += FPSTR(LAMPPAGE_STYLE);
   page += FPSTR(LAMPPAGE_BODY);
   page += FPSTR(LAMPPAGE_SCRIPT);
+
   page += F("</html>");
   request->send(200, WM_HTTP_HEAD_CT, page);
 

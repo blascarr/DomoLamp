@@ -21,6 +21,7 @@ void initWebServer() {
       Serial.print(" JSON Data ");
       Serial.println( jsonData );
       strip.setStatus(jsonData);
+      request->send(200, "text/plain", "OK");
     }
   });
 

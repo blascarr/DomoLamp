@@ -16,11 +16,13 @@ void initWebServer() {
   });
 
    server.on("/domo", HTTP_GET, [] (AsyncWebServerRequest *request) {  
-    //Get Name
-    String jsonData = request->getParam("LampData")->value();
-    Serial.print(" JSON Data ");
-    Serial.println( jsonData );
-
+    if (request->hasParam( DATA_REQUEST_INPUT )){
+      String jsonData = request->getParam("LampData")->value();
+      Serial.print(" JSON Data ");
+      Serial.println( jsonData );
+      strip.setStatus(jsonData);
+      request->send(200, "text/plain", "OK");
+    }
   });
 
    // Handle Web Server Events
