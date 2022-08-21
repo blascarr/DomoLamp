@@ -10,7 +10,7 @@
     Serial.println("Disconnected from Wi-Fi From Event.");
     mqttReconnectTimer.detach(); // ensure we don't reconnect to MQTT while reconnecting to Wi-Fi
     if( strip.currentStatus.effect != NOWIFI ){
-      wifiReconnectTimer.once(3, connectToWifi);
+      wifiReconnectTimer.once(2, connectToWifi);
     }
   }
 #endif
@@ -18,6 +18,7 @@
 #if defined(ESP32)
   void onWifiConnect(WiFiEvent_t event, WiFiEventInfo_t info) {
     Serial.println("Connected to Wi-Fi From Event.");
+    mqtt_reset_trycounter = 0;
     connectToMqtt();
   }
   

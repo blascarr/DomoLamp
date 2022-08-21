@@ -6,6 +6,7 @@
 #include "DomoLamp_Controller.h"
 DomoLamp strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 
+#include "OTA_Controller.h"
 #include "Server_Controller.h"
 
 #include "Wifi_Controller.h"
@@ -22,11 +23,11 @@ void setup() {
   domolampTicker.attach_ms( time_interval, striploop );
   connectToWifi();
   MQTT_init();
-  //connectToMqtt();
+  connectToMqtt();
 
   initWebServer();
 }
 
 void loop() {
-  
+  ArduinoOTA.handle();
 }
