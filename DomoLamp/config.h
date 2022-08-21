@@ -27,10 +27,10 @@ char DOMOLAMP_ID  [MQTT_TOPIC_ID_LEN]   = "D0M0L4MP";
 #define MQTT_ACKTOPIC_LEN       16
 #define MQTT_QOS                1
 
-char MQTT_HOST [MQTT_HOST_LEN]    = "mqtt.blascarr.com";
+char MQTT_HOST [MQTT_HOST_LEN]    = "mqtt.host.com";
 char MQTT_PORT   [MQTT_PORT_LEN]  = "1883";
 char MQTT_USER  [MQTT_USER_LEN]   = "admin";
-char MQTT_PASS  [MQTT_PASS_LEN]   = "AWS_qu1t_m0st";
+char MQTT_PASS  [MQTT_PASS_LEN]   = "**********";
 char MQTT_TOPIC   [MQTT_TOPIC_LEN]   = "test/";
 char MQTT_ACKTOPIC   [MQTT_ACKTOPIC_LEN]   = "ack/";
 
@@ -39,7 +39,7 @@ int mqtt_reset_trycounter = 0;
 
 // SERVER CONFIG
 #define SERVER_EVENTS_ENDPOINT "/domo_events"
-
+#define DATA_REQUEST_INPUT "LampData"
 // SLEEP CONFIG
 #define uS_TO_S_FACTOR 1000000  /* Conversion factor for micro seconds to seconds */
 #define SLEEP_TIME_LEN    10
