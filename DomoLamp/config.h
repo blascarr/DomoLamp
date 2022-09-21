@@ -38,6 +38,7 @@ char MQTT_ACKTOPIC   [MQTT_ACKTOPIC_LEN]   = "ack/";
 int mqtt_reset_trycounter = 0;
 
 // SERVER CONFIG
+#define SERVER_ENDPOINT "/domo"
 #define SERVER_EVENTS_ENDPOINT "/domo_events"
 #define DATA_REQUEST_INPUT "LampData"
 

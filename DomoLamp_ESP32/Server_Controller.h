@@ -15,7 +15,7 @@ void initWebServer() {
     request->send_P(200, "text/html", domolamp_html);
   });
 
-   server.on("/domo", HTTP_GET, [] (AsyncWebServerRequest *request) {  
+   server.on( SERVER_ENDPOINT , HTTP_GET, [] (AsyncWebServerRequest *request) {  
     if (request->hasParam( DATA_REQUEST_INPUT )){
       String jsonData = request->getParam("LampData")->value();
       Serial.print(" JSON Data ");
