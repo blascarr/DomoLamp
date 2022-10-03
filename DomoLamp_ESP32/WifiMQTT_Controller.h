@@ -3,6 +3,10 @@
   void onWifiConnect(const WiFiEventStationModeGotIP& event) {
     Serial.println("Connected to Wi-Fi From Event.");
     mqtt_reset_trycounter = 0;
+    if(!domolampTicker.active() ){
+      Serial.println("Ticker Domolamp Init ");
+      domolampTicker.attach_ms( time_interval, striploop );
+    }
     connectToMqtt();
   }
   
@@ -10,7 +14,7 @@
     Serial.println("Disconnected from Wi-Fi From Event.");
     mqttReconnectTimer.detach(); // ensure we don't reconnect to MQTT while reconnecting to Wi-Fi
     if( strip.currentStatus.effect != NOWIFI ){
-      wifiReconnectTimer.once(2, connectToWifi);
+      wifiReconnectTimer.once(WIFI_RECONNECT_TIMER_S, connectToWifi);
     }
   }
 #endif
@@ -26,7 +30,7 @@
     Serial.println("Disconnected from Wi-Fi From Event.");
     mqttReconnectTimer.detach(); // ensure we don't reconnect to MQTT while reconnecting to Wi-Fi
     if( strip.currentStatus.effect != NOWIFI ){
-      wifiReconnectTimer.once(2, connectToWifi);
+      wifiReconnectTimer.once(WIFI_RECONNECT_TIMER_S, connectToWifi);
     }
   }
 #endif

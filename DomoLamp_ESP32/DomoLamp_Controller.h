@@ -49,8 +49,16 @@ class DomoLamp  : public Adafruit_NeoPixel {
       }
       void init(){
         this->begin();           // INITIALIZE NeoPixel strip object (REQUIRED)
+        this->reset();           //SET GND to HIGH in order to avoid current overflow          
+        this->fill( 0 , 0 , this->numPixels());
         this->show();            // Turn OFF all pixels ASAP
         this->setBrightness(brightness); // Set BRIGHTNESS to about 1/5 (max = 255)
+        digitalWrite(POWERCONTROL_PIN, LOW);  //SET GND to LOW connecting strip voltage 
+      }
+
+      void reset(){
+        digitalWrite(LED_PIN, LOW);
+        digitalWrite(POWERCONTROL_PIN, HIGH);
       }
       
       void loop(){
