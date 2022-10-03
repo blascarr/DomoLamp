@@ -57,8 +57,8 @@ Use **Spiralize Outer Contour** in **Ultimaker Cura** Software to print the lamp
 
 ## Electronic Wiring with battery charger
 
-![DomoLamp_bb.png](/src/DomoLamp_bb.png)
-
+![DomoLamp_bb.png](/src/DomoLamp_ControlLEDGND_bb.png)
+* LED Control Pin to GND LEds for current protection for WiFi and LED current consumption.
 ## Data JSON Structure sent through Node-Red
 
 ### Simple Node-Red configuration used with MQTT Server
