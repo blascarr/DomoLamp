@@ -3,7 +3,7 @@
 #include <ESPAsyncWebServer.h>
 #include "webpage.h"
 
-AsyncWebServer server(80);
+AsyncWebServer server( SERVER_PORT );
 DNSServer dns;
 
 // Create an Event Source on /events
@@ -15,11 +15,10 @@ void initWebServer() {
     request->send_P(200, "text/html", domolamp_html);
   });
 
-   server.on( SERVER_ENDPOINT, HTTP_GET, [] (AsyncWebServerRequest *request) {  
+   server.on( SERVER_ENDPOINT , HTTP_GET, [] (AsyncWebServerRequest *request) {  
     if (request->hasParam( DATA_REQUEST_INPUT )){
-      String jsonData = request->getParam("LampData")->value();
-      Serial.print(" JSON Data ");
-      Serial.println( jsonData );
+      String jsonData = request->getParam( DATA_REQUEST_INPUT )->value();
+      DUMPLN(" JSON Data ", jsonData );
       strip.setStatus(jsonData);
       request->send(200, "text/plain", "OK");
     }
@@ -28,14 +27,12 @@ void initWebServer() {
    // Handle Web Server Events
   events.onConnect([](AsyncEventSourceClient * client) {
     if (client->lastId()) {
-      //#ifdef SERIALDEBUG
-        Serial.printf("Client reconnected! Last message ID that it got is: %u\n", client->lastId());
-      //#endif
+        DUMPF("Client reconnected! Last message ID that it got is: %u\n", client->lastId());
     }
-    Serial.print("On Connect Event ");
-    //events.send(getNodeInfo().c_str(), "node_info", millis());
+    DUMPSLN("On Connect Event ");
   });
   
   server.addHandler(&events);
   server.begin();
+  DUMPSLN("SERVER ON");
 }
