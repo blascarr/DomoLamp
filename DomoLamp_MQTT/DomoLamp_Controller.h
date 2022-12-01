@@ -3,6 +3,10 @@
 enum modes { UNDEF, COLOR, BLINK, UPDOWN, RAINBOW, FADE, UPWAVE, DWAVE, LANDING, UPLANDING, DOWNLANDING, ONWIFI, NOWIFI, OFF };
 enum landing_modes { UPANDDOWN, UP, DOWN };
 
+#if NOTIFY 
+  enum notif_lights : uint32_t { NOTIF_RED = 16711680, NOTIF_GREEN = 65280, NOTIF_BLUE = 255, NOTIF_WHITE = 16777215, NOTIF_BLUESEA = 65535, NOTIF_PURPLE= 10420479, NOTIF_YELLOW = 16776960 };
+#endif
+
 struct colorRGB{
   uint8_t red;
   uint8_t green;
@@ -47,21 +51,32 @@ class DomoLamp  : public Adafruit_NeoPixel {
         this->currentStatus.color = this->Color( 0, 255, 0);
         even = !n%2;
       }
+      
       void init(){
         this->begin();           // INITIALIZE NeoPixel strip object (REQUIRED)
         this->reset();           //SET GND to HIGH in order to avoid current overflow          
-        this->fill( 0 , 0 , this->numPixels());
-        this->show();            // Turn OFF all pixels ASAP
+        this->clean();            // Turn OFF all pixels ASAP
         this->setBrightness(brightness); // Set BRIGHTNESS to about 1/5 (max = 255)
-        digitalWrite(POWERCONTROL_PIN, LOW);  //SET GND to LOW connecting strip voltage 
-      }
+        digitalWrite(POWERCONTROL_PIN, LOW);  //SET GND to LOW connecting strip voltage      
 
+        #if NOTIFY
+          this->fill( NOTIF_GREEN , 0, NOTIFY_LEDS );
+          this->show(); 
+        #endif
+      }
+      
       void reset(){
         digitalWrite(LED_PIN, LOW);
         digitalWrite(POWERCONTROL_PIN, HIGH);
       }
+
+      void clean(){
+        this->clear();
+        this->show();
+      }
       
       void loop(){
+        DUMPSLN("HI");
         (this->*light)();
       }
 
@@ -93,32 +108,26 @@ class DomoLamp  : public Adafruit_NeoPixel {
       }
 
       void setStatus( String payload ){
-         Serial.print("Set status from JSON: ");
-         Serial.println( payload );
+         //DUMP("Set status from JSON: ", payload );
          JSONVar domoJSON = JSON.parse(payload);
          if (JSON.typeof(domoJSON) == "undefined") {
-            Serial.println("Parsing input failed!");
+            DUMPSLN("Parsing input failed!");
             return;
           }
-
-         Serial.print("JSON.typeof(myObject) = ");
-         Serial.println(JSON.typeof(domoJSON)); // prints: object
          
          if (domoJSON.hasOwnProperty("effect")) {
             int len = STREAM_CHARLENGTH;
             char messageArray[len];
             memcpy ( messageArray, (const char*)domoJSON["effect"], len );
             String message(messageArray);
-            Serial.println(message);
             this->currentStatus.mode = message;
-            Serial.println(this->currentStatus.mode);
+            DUMPS("MODE: ");
             setStatusLamp( this->currentStatus.mode );
          }
 
          if (domoJSON.hasOwnProperty("latency")) {
             this->currentStatus.latency = (int) domoJSON["latency"];
-            Serial.print("Latency : ");
-            Serial.println(this->currentStatus.latency);
+            DUMPLN("Latency : ", this->currentStatus.latency);
          }
 
          if (domoJSON.hasOwnProperty("RGBColor")) {
@@ -126,79 +135,78 @@ class DomoLamp  : public Adafruit_NeoPixel {
             this->currentStatus.RGBColor.green = (int) domoJSON["RGBColor"][1];
             this->currentStatus.RGBColor.blue = (int) domoJSON["RGBColor"][2];
             this->currentStatus.color = this->Color( this->currentStatus.RGBColor.red , this->currentStatus.RGBColor.green, this->currentStatus.RGBColor.blue );
-            Serial.print("Color : ");
-            Serial.println(this->currentStatus.color);
+            DUMPLN("Color : ", this->currentStatus.color);
          }
          
          if (domoJSON.hasOwnProperty("landingleds")) {
             this->currentStatus.landingleds = (int) domoJSON["landingleds"];
-            Serial.println(this->currentStatus.landingleds);
+            DUMPLN("LANDINGLEDS: ",this->currentStatus.landingleds);
          }
          if (domoJSON.hasOwnProperty("brightness")) {
             this->setBrightness( map ( (int) domoJSON["brightness"] , 0, 100, 0 , 255) ); // Set BRIGHTNESS to about 1/5 (max = 255)
-            Serial.print("Bright : ");
-            Serial.println( this->getBrightness() );
+            DUMPLN("Brightness : ", this->getBrightness() );
          }
          
          setLamp();
+         DUMPPRINTLN();
       }
       
       void setStatusLamp( String mode ){
         if( mode.indexOf("BLIN") == 0 ){
            this->currentStatus.effect = BLINK;
-           Serial.println("BLINK");
+           DUMPSLN("BLINK");
         }
         if( mode.indexOf("COLO") == 0 ){
            this->currentStatus.effect = COLOR;
-           Serial.println("COLOR");
+           DUMPSLN("COLOR");
         }
         if( mode.indexOf("RAIN") == 0 ){
            this->currentStatus.effect = RAINBOW;
-           Serial.println("RAINBOW");
+           DUMPSLN("RAINBOW");
         }
         if( mode.indexOf("FADE") == 0 ){
            this->currentStatus.effect = FADE;
-           Serial.println("FADE");
+           DUMPSLN("FADE");
         }
         if( mode.indexOf("UPDO") == 0 ){
            this->currentStatus.effect = UPDOWN;
-           Serial.println("UPDOWN");
+           DUMPSLN("UPDOWN");
         }
         if( mode.indexOf("LAND") == 0 ){
            this->currentStatus.effect = LANDING;
-           Serial.println("LANDING");
+           DUMPSLN("LANDING");
         }
         if( mode.indexOf("UPLA") == 0 ){
            this->currentStatus.effect = UPLANDING;
-           Serial.println("UPLANDING");
+           DUMPSLN("UPLANDING");
         }
         if( mode.indexOf("DOWN") == 0 ){
            this->currentStatus.effect = DOWNLANDING;
-           Serial.println("DOWNLANDING");
+           DUMPSLN("DOWNLANDING");
         }
         if( mode.indexOf("DWAV") == 0 ){
            this->currentStatus.effect = DWAVE;
-           Serial.println("DWAVE");
+           DUMPSLN("DWAVE");
         }
         if( mode.indexOf("UPWA") == 0 ){
            this->currentStatus.effect = UPWAVE;
-           Serial.println("UPWAVE");
+           DUMPSLN("UPWAVE");
         }
         if( mode.indexOf("NOWI") == 0 ){
            this->currentStatus.effect = NOWIFI;
-           Serial.println("WIFI MANAGER RESET");
+           DUMPSLN("WIFI MANAGER RESET");
         }
         if( mode.indexOf("ONWI") == 0 ){
            this->currentStatus.effect = ONWIFI;
-           Serial.println("WIFI ON");
+           DUMPSLN("WIFI ON");
         }
         if( mode.indexOf("OFF") == 0 ){
            this->currentStatus.effect = OFF;
-           Serial.println("OFF");
+           DUMPSLN("OFF");
         }
         if( mode.indexOf("UNDE") == 0 ){
            this->currentStatus.effect = UNDEF;
-           Serial.println("UNDEF");
+           DUMPSLN("UNDEF");
         }
       }
 
