@@ -5,14 +5,10 @@
 // ------------------ WIFI CONFIG --------------------//
 
 #define WIFIMANAGER   true
-
 #define WIFI_SSID   "SSID"
 #define WIFI_PASS   "********"
 #define WIFI_HOST   "DOMO_LAMP"
 #define LOCAL_IP IPAddress(192, 168, 1, 180)
-
-#define OTA           false
-#define OTA_HOST   "DOMO_LAMP"
 
 // ------------------ MQTT CONFIG --------------------//
 #define MQTT_HOST_LEN           64
@@ -30,7 +26,7 @@ char MQTT_ACKTOPIC   [MQTT_ACKTOPIC_LEN]   = "ack/";
 #define MQTT_TOPIC_ID_LEN         16
 char DOMOLAMP_ID  [MQTT_TOPIC_ID_LEN]   = "lamp/1";
 
-#define MQTT_CREDENTIALS true
+#define MQTT_CREDENTIALS false
 char MQTT_USER  [MQTT_USER_LEN]   = "admin";
 char MQTT_PASS  [MQTT_PASS_LEN]   = "*******";
 
@@ -55,6 +51,10 @@ int mqtt_reset_trycounter = 0;
 #define SERVER_EVENTS_ENDPOINT "/domo_events"
 #define DATA_REQUEST_INPUT "LampData"
 #define SERVER_PORT  80
+
+// ---------- OTA CONFIG ---------- //
+#define OTA           false
+#define OTA_HOST   "DOMO_LAMP"
 
 // ---------- TEST CONFIG ---------- //
 #define NOTIFY true

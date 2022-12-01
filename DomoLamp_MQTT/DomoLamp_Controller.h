@@ -76,7 +76,6 @@ class DomoLamp  : public Adafruit_NeoPixel {
       }
       
       void loop(){
-        DUMPSLN("HI");
         (this->*light)();
       }
 

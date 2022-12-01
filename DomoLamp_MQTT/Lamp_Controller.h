@@ -1,6 +1,5 @@
 Ticker domolampTicker;
 
-
 void DomoLamp::resetWifiManager( ){
   #if WIFIMANAGER
     DUMPSLN("Reset Wifi Manager");

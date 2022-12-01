@@ -32,6 +32,11 @@ bool connectToWifi() {
       wifiManager.addParameter(&custom_mqtt_pass);
     #endif
     
+    if(!domolampTicker.active() ){
+      DUMPSLN("Ticker Domolamp Init ");
+      domolampTicker.attach_ms( time_interval, striploop );
+    }
+    
     #if NOTIFY
           strip.clean();
           strip.fill( NOTIF_BLUE , 0, 2*NOTIFY_LEDS );
